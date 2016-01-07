@@ -1,0 +1,70 @@
+html, body {
+	height: 100%;
+}
+
+@font-face {
+    font-family: BellBottom;
+    src: url("../fonts/BellBottom.ttf");
+}
+
+body {
+  margin: 0; 
+	background: #70e1f5; /* fallback for old browsers */
+	background: url("../img/icon.png") repeat, -webkit-linear-gradient(to left, #70e1f5 , #ffd194); /* Chrome 10-25, Safari 5.1-6 */
+	background: url("../img/icon.png") repeat, linear-gradient(to left, #70e1f5 , #ffd194); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+ 	background-position: center;
+  background-attachment: fixed;
+}
+
+h1 {
+	font-family: BellBottom;
+	font-size: 60px;
+}
+
+.navbar {
+  color: white;
+  border-width: 0 0 0;
+}
+
+.navbar-header {
+  float: left;
+}
+
+.navbar-nav {
+  margin: 1em;
+  float: right;
+}
+
+.navbar-inverse {
+  background-color: transparent;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+  margin: 1em;
+  padding: 0.25em;
+  color: white;
+  font-size: large;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover {
+  color: #869bb3;
+}
+
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus {
+  color: #fff;
+  background-color: transparent;
+}
+
+.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav > .open > a:focus {
+  color: #fff;
+  background-color: transparent;
+}
+
+.navbar-inverse .navbar-nav > .active > a {
+  text-decoration: none;
+  border-bottom: 2px solid white;
+}
