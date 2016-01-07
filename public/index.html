@@ -7,8 +7,9 @@
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
   <link rel="stylesheet" href="css/index.css">
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js"></script>
-  <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
-  <script src="http://documentcloud.github.com/backbone/backbone-min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.3/backbone-min.js"></script>
  
 </head>
 <body>
@@ -38,11 +39,12 @@
      <div class="funfixer">
         <div class="info">
           
-          <div class="title"><%= title %></div>
           <div class="description"><%= description %></div>
           <div class="host"><%= host %></div>
-          <img src="<%= img %>"/>
-          
+          <div class="img-box">
+            <img src="<%= img %>"/>
+          </div>
+          <div class="title"><%= title %></div>
         </div>
     </div>
   </script>
