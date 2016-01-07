@@ -54,6 +54,9 @@ funfixersRoute.get(function(req, res) {
      return {
        _id: funfixer._id,
        title: funfixer.title,
+       description: funfixer.description,
+       host: funfixer.host,
+       img: funfixer.img
        
      }});
    res.send(result);
