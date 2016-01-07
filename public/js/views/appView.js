@@ -16,6 +16,7 @@ app.AppView = Backbone.View.extend({
         funfixersView.render();
       }
     });
+
   },
 
   createFunfixer: function(e){
@@ -40,6 +41,7 @@ app.AppView = Backbone.View.extend({
       success: function(){ 
           // model was saved successfully, now add it to the collection
           funfixers.add(funfixer);
+          funfixersView.render();
           // if you can't access your wine list from this context, you might want to raise an event, and pass the wine, to catch it somewhere else:
           //obj.trigger('myWineAdded', wine); // this can be raised on a global event aggregator
       },
