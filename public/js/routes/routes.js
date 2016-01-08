@@ -6,6 +6,7 @@ app.Router = Backbone.Router.extend({
             'funfixers/:id': 'details'
         },
 
+
         funfixers: function () {
         	console.log("View root requested.");
         
@@ -14,7 +15,7 @@ app.Router = Backbone.Router.extend({
         	funfixers.fetch({
       			success: function() {
       				console.log("Success");
-        			$('body').html(funfixerListView.render().el);
+        			$('.row').html(funfixerListView.render().el);
       			}
       		});
         	
@@ -22,8 +23,20 @@ app.Router = Backbone.Router.extend({
 
         details: function (id) {
             console.log("View funfixer requested.");
-            //var funfixer = app.collection.get(id);
-        	var detailView = new app.FunfixerDetailsView({model:funfixer});
-        	$('#funfixer').html(detailView.render().el);
+            var funfixers = new app.FunfixerList(); 
+        	funfixers.fetch({
+      			success: function() {
+      				console.log("Success");
+      				var funfixer = funfixers.get(id);
+      				var funfixerDetailsView = new app.FunfixerDetailsView({model:funfixer})
+      				console.log(funfixer);
+        			$('.row').html(funfixerDetailsView.render().el);
+      			}
+      		});
+            
+            
+            
+        	/*var detailView = new app.FunfixerDetailsView({model:funfixer});
+        	$('#funfixer').html(detailView.render().el);*/
         }
     });
