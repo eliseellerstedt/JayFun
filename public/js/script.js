@@ -30,7 +30,9 @@ var FunfixerView = Backbone.View.extend({
 		this.template = _.template($('#funfixerTemplate').html());
 	},
 	events: {
-		'click .remove': 'delete'
+		'click .remove': 'delete',
+		'click .edit': 'edit',
+		'click .save': 'save'
 	},
 	delete: function() {
 		this.model.destroy({
@@ -39,6 +41,35 @@ var FunfixerView = Backbone.View.extend({
 			},
 			error: function(err) {
 				console.log('Failed to delete blog!');
+			}
+		});
+	},
+	edit: function(){
+
+		$('.remove').hide();
+		$('.edit').hide();
+		$('.save').show();
+		$('.cancel').show();
+
+		var host = this.$('.host').html();
+		var title = this.$('.title').html();
+		var description = this.$('.description').html();
+
+		this.$('.host').html('<input type="text" class="form-control host-update" value="' + host + '">');
+		this.$('.title').html('<input type="text" class="form-control title-update" value="' + title + '">');
+		this.$('.description').html('<input type="text" class="form-control description-update" value="' + description + '">');
+	},
+	save: function(){
+		this.model.set('host', $('.host-update').val());
+		this.model.set('title', $('.title-update').val());
+		this.model.set('description', $('.description-update').val());
+
+		this.model.save(null, {
+			success: function(response) {
+				console.log('Successfully UPDATED blog with _id: ' + response.toJSON()._id);
+			},
+			error: function(err) {
+				console.log('Failed to update blog!');
 			}
 		});
 	},
@@ -87,7 +118,8 @@ var FunfixersView = Backbone.View.extend({
 var funfixersView = new FunfixersView();
 
 $(document).ready(function() {
-	$('.new-fun').on('click', function() {
+	$('.new-fun').on('click', function(e) {
+		e.preventDefault();
 		var funfixer = new Funfixer({
 			title: $('#title').val(),
 			description: $('#description').val(),

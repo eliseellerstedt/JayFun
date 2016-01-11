@@ -110,6 +110,40 @@ funfixerRoute.delete(function(req, res){
 
 });
 
+funfixerRoute.put(function(req, res) {
+  Funfixer.findById(req.params.funfixer_id, function(err, funfixer) {
+    if (err)
+      res.send(err);
+
+    funfixer.title = req.body.title;
+    funfixer.host = req.body.host;
+    funfixer.description = req.body.description;
+    funfixer.img = req.body.img;
+
+    funfixer.save(function(err) {
+      if (err)
+        res.send(err);
+
+      Funfixer.find({}, null, function(err, funfixers) {
+        if (err)
+          res.send(err);
+
+        var result = funfixers.map(function(funfixer) {
+         return {
+           _id: funfixer._id,
+           title: funfixer.title,
+           host: funfixer.host,
+           description: funfixer.description,
+           img: funfixer.img
+         }});
+
+        console.log(result);
+        res.json(result);
+      });
+    });
+  });
+});
+
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/api', router);
