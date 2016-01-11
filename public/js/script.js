@@ -32,15 +32,16 @@ var FunfixerView = Backbone.View.extend({
 	events: {
 		'click .remove': 'delete',
 		'click .edit': 'edit',
-		'click .save': 'save'
+		'click .save': 'save',
+		'click .cancel': 'cancel'
 	},
 	delete: function() {
 		this.model.destroy({
 			success: function(response) {
-				console.log('Successfully DELETED blog with _id: ' + response.toJSON()._id);
+				console.log('Successfully DELETED funfixer with _id: ' + response.toJSON()._id);
 			},
 			error: function(err) {
-				console.log('Failed to delete blog!');
+				console.log('Failed to delete funfixer!');
 			}
 		});
 	},
@@ -66,12 +67,15 @@ var FunfixerView = Backbone.View.extend({
 
 		this.model.save(null, {
 			success: function(response) {
-				console.log('Successfully UPDATED blog with _id: ' + response.toJSON()._id);
+				console.log('Successfully UPDATED funfixer with _id: ' + response.toJSON()._id);
 			},
 			error: function(err) {
-				console.log('Failed to update blog!');
+				console.log('Failed to update funfixer!');
 			}
 		});
+	},
+	cancel: function(){
+		funfixersView.render();
 	},
 	render: function() {
 		this.$el.html(this.template(this.model.toJSON()));
@@ -79,7 +83,7 @@ var FunfixerView = Backbone.View.extend({
 	}
 });
 
-// Backbone View for all blogs
+// Backbone View for all funfixers
 
 var FunfixersView = Backbone.View.extend({
 	model: funfixers,
@@ -133,10 +137,10 @@ $(document).ready(function() {
 		funfixers.add(funfixer);
 		funfixer.save(null, {
 			success: function(response) {
-				console.log('Successfully SAVED blog with _id: ' + response.toJSON()._id);
+				console.log('Successfully SAVED funfixer with _id: ' + response.toJSON()._id);
 			},
 			error: function() {
-				console.log('Failed to save blog!');
+				console.log('Failed to save funfixer!');
 			}
 		});
 	});
