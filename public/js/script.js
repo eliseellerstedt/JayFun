@@ -47,10 +47,10 @@ var FunfixerView = Backbone.View.extend({
 	},
 	edit: function(){
 
-		$('.remove').hide();
-		$('.edit').hide();
-		$('.save').show();
-		$('.cancel').show();
+		this.$('.remove').hide();
+		this.$('.edit').hide();
+		this.$('.save').show();
+		this.$('.cancel').show();
 
 		var host = this.$('.host').html();
 		var title = this.$('.title').html();
