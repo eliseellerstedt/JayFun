@@ -97,6 +97,19 @@ funfixersRoute.post(function(req, res){
   });
 });
 
+//Single funfixer-----------------------------------------------
+
+var funfixerRoute = router.route('/funfixers/:funfixer_id');
+
+funfixerRoute.delete(function(req, res){
+
+  Funfixer.findByIdAndRemove(req.params.funfixer_id, function(err, funfixer){
+    if (err) res.send(err);
+    res.json({message: "Removed activity"});
+  });
+
+});
+
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/api', router);

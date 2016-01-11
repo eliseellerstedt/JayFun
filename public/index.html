@@ -32,29 +32,30 @@
 
    <div class="container">
      <div class="row">
-      <div id="funfixers">
-        <div class="funfixer">
-          <div class="info">
-            <form class="funfixerForm">
-              <input type="text" placeholder="Title" name="title" id="title"/>
-              <input type="text" placeholder="Description" name="description" id="description"/>
-              <input type="text" placeholder="Host" name="host" id="host"/>
-              <input type="text" placeholder="Image" name="img" id="img"/>
-              <button class="new-fun" type="submit">Create</button>
-            </form>   
-          </div>
-          <!-- Adds funfixers here -->
-
+      <div class="funfixer">
+        <div class="info">
+          <form class="funfixerForm">
+            <input type="text" placeholder="Title" name="title" id="title"/>
+            <input type="text" placeholder="Description" name="description" id="description"/>
+            <input type="text" placeholder="Host" name="host" id="host"/>
+            <input type="text" placeholder="Image" name="img" id="img"/>
+            <button class="new-fun" type="submit">Create</button>
+          </form>   
         </div>
       </div>
+      <div id="funfixers">
+        
+          <!-- Adds funfixers here -->
+
+      </div>
+      </div>
     </div>
-   </div>
+   
 
    <script id="funfixerTemplate" type="text/template">
      
         <div class="info">
-          <div class="description"><%= description %></div>
-          <div class="host"><%= host %></div>
+          
           <div class="img-box">
             <img src="<%= img %>"/>
           </div>
@@ -63,27 +64,15 @@
         </div>
     
   </script>
-
-  <script id="funfixerDetailsTemplate" type="text/template">
-     <div class="funfixerDetails">
-        <div class="info">
-          <div class="img-box">
-            <img src="<%= img %>"/>
-          </div>
-          <div class="title"><%= title %></div>
-          <div class="description"><%= description %></div>
-          <div class="host"><%= host %></div>
-        </div>
-    </div>
-  </script>
   
-  <script src="js/routes/routes.js"></script>
+  <!--<script src="js/routes/routes.js"></script>
   <script src="js/models/funfixer.js"></script>
   <script src="js/collections/funfixerList.js"></script>
   <script src="js/views/funfixerListItemView.js"></script>
   <script src="js/views/funfixerDetailsView.js"></script>
   <script src="js/views/funfixerListView.js"></script>
   <script src="js/views/appView.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/app.js"></script>-->
+  <script src="js/script.js"></script>
 </body>
 </html>
