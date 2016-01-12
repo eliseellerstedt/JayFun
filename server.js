@@ -57,9 +57,11 @@ funfixersRoute.get(function(req, res) {
        description: funfixer.description,
        host: funfixer.host,
        img: funfixer.img,
-       joined: funfixer.joined
+       joined: funfixer.joined,
+        hasJoined: funfixer.joined.indexOf("Elise Ellerstedt") >= 0
        
      }});
+   console.log(result);
    res.send(result);
    });
    
@@ -91,7 +93,8 @@ funfixersRoute.post(function(req, res){
          host: funfixer.host,
          description: funfixer.description,
          img: funfixer.img,
-         joined: funfixer.joined
+         joined: funfixer.joined,
+        hasJoined: funfixer.joined.indexOf("Elise Ellerstedt") >= 0
        }});
 
         console.log(result);
@@ -139,7 +142,8 @@ funfixerRoute.put(function(req, res) {
            host: funfixer.host,
            description: funfixer.description,
            img: funfixer.img,
-           joined: funfixer.joined
+           joined: funfixer.joined,
+           hasJoined: funfixer.joined.indexOf("Elise Ellerstedt") >= 0
          }});
 
         console.log(result);

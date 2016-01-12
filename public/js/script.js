@@ -8,7 +8,8 @@ var Funfixer = Backbone.Model.extend({
     	description: '',
     	host: '',
     	img: '',
-    	joined: []
+    	joined: [],
+    	hasJoined: ''
   	}
 });
 
@@ -84,9 +85,19 @@ var FunfixerView = Backbone.View.extend({
 	},
 	join: function(){
 		var arr = _.clone(this.model.get('joined'));
-		arr.push('Elise Ellerstedt');
+		
+		if(this.model.get('hasJoined')){
+			var index = arr.indexOf("Elise Ellerstedt");
+			if(index != -1) {
+				arr.splice(index, 1);
+			}	
+		}else{
+			
+			arr.push('Elise Ellerstedt');
+		}
 
 		this.model.set('joined', arr);
+		this.model.set('hasJoined', !this.model.get('hasJoined'));
 		this.model.save(null, {
 			success: function(response) {
 				console.log('Successfully UPDATED funfixer with _id: ' + response.toJSON()._id);
@@ -95,6 +106,7 @@ var FunfixerView = Backbone.View.extend({
 				console.log('Failed to update funfixer!');
 			}
 		});
+
 	},
 	render: function() {
 		this.$el.html(this.template(this.model.toJSON()));
