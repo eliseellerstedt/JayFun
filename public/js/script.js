@@ -8,6 +8,7 @@ var Funfixer = Backbone.Model.extend({
     	description: '',
     	host: '',
     	img: '',
+    	address: '',
     	joined: [],
     	hasJoined: ''
   	}
@@ -159,12 +160,14 @@ $(document).ready(function() {
 			title: $('#title').val(),
 			description: $('#description').val(),
 			host: $('#host').val(),
-			img: $('#img').val()
+			img: $('#img').val(),
+			address: $('#address').val()
 		});
 		$('#title').val("");
         $('#description').val("");
         $('#host').val("");
         $('#img').val("");
+        $('#address').val("");
 		funfixers.add(funfixer);
 		funfixer.save(null, {
 			success: function(response) {
@@ -175,4 +178,6 @@ $(document).ready(function() {
 			}
 		});
 	});
+
+
 })

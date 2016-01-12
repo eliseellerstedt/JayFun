@@ -38,6 +38,7 @@
             <input type="text" placeholder="Description" name="description" id="description"/>
             <input type="text" placeholder="Host" name="host" id="host"/>
             <input type="text" placeholder="Image" name="img" id="img"/>
+            <input type="text" placeholder="Address" name="address" id="address"/>
             <button class="new-fun" type="submit">Create</button>
           </form>   
         </div>
@@ -71,6 +72,9 @@
           </div>
           <div class="title"><%= title %></div>
           <div class="description"><%= description %></div>
+          <iframe class="map" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"width="100%" height="200px" src="https://maps.google.com/maps?hl=en&q=<%= address %>&ie=UTF8&t=roadmap&z=10&iwloc=B&output=embed"><div><small><a href="http://embedgooglemaps.com">
+                  embedgooglemaps.com
+              </a></small></div><div><small><a href="https://www.premiumlinkgenerator.com/">premium link generator </a></small></div></iframe>
 
           <div class="buttons">
             <button class="btn remove"><i class="fa fa-trash"></i></button>

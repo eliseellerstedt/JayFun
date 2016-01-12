@@ -51,12 +51,14 @@ funfixersRoute.get(function(req, res) {
      return;
    }
    var result = funfixers.map(function(funfixer) {
+    console.log(funfixer);
      return {
        _id: funfixer._id,
        title: funfixer.title,
        description: funfixer.description,
        host: funfixer.host,
        img: funfixer.img,
+       address: funfixer.address,
        joined: funfixer.joined,
         hasJoined: funfixer.joined.indexOf("Elise Ellerstedt") >= 0
        
@@ -76,6 +78,7 @@ funfixersRoute.post(function(req, res){
   funfixer.description = req.body.description;
   funfixer.host = req.body.host;
   funfixer.img = req.body.img;
+  funfixer.address = req.body.address;
   funfixer.joined = req.body.joined;
 
   // Save the activity and check for errors
@@ -93,6 +96,7 @@ funfixersRoute.post(function(req, res){
          host: funfixer.host,
          description: funfixer.description,
          img: funfixer.img,
+         address: funfixer.address,
          joined: funfixer.joined,
         hasJoined: funfixer.joined.indexOf("Elise Ellerstedt") >= 0
        }});
@@ -125,6 +129,7 @@ funfixerRoute.put(function(req, res) {
     funfixer.host = req.body.host;
     funfixer.description = req.body.description;
     funfixer.img = req.body.img;
+    funfixer.address = req.body.address;
     funfixer.joined = req.body.joined;
 
     funfixer.save(function(err) {
@@ -142,6 +147,7 @@ funfixerRoute.put(function(req, res) {
            host: funfixer.host,
            description: funfixer.description,
            img: funfixer.img,
+           address: funfixer.address,
            joined: funfixer.joined,
            hasJoined: funfixer.joined.indexOf("Elise Ellerstedt") >= 0
          }});

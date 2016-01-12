@@ -6,6 +6,7 @@ var FunfixerSchema   = new Schema({
     description: String,
     host: String,
     img: String,
+    address: String,
     joined: [String]
 });
 
