@@ -54,7 +54,14 @@
    <script id="funfixerTemplate" type="text/template">
      
         <div class="info">
-          <button class="btn join"><i class="fa fa-heart-o"></i></button>
+          <button class="btn join">
+            <% if (joined.indexOf('Elise Ellerstedt') < 0) { %>
+              <i class="fa fa-heart-o"></i>
+            <% }else{ %>
+              <i class="fa fa-heart"></i>
+
+          <% } %>
+          </button>
           <div class="host-box">
             <p class="host"><%= host %></p>
 
