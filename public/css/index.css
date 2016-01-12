@@ -105,19 +105,28 @@ button {
   align-items: center;
   margin: 30px;
   padding: 30px;
+  position: relative;
   background-color: rgba(255, 255, 255, 0.3);
   border-radius: 20px;
+}
+
+.join {
+  width: 40px;
+  position: absolute;
+  top: 2px;
+  right: 2px;
 }
 
 .host-box {
   width: 80%;
   font-style: italic;
-  text-align: right;
+  text-align: left;
 }
 
 .img-box {
   width: 90%;
   height: auto;
+  margin: 5px 0 10px 0;
 }
 
 .img-box img {

@@ -7,7 +7,8 @@ var Funfixer = Backbone.Model.extend({
     	title: '',
     	description: '',
     	host: '',
-    	img: ''
+    	img: '',
+    	joined: []
   	}
 });
 
@@ -33,7 +34,8 @@ var FunfixerView = Backbone.View.extend({
 		'click .remove': 'delete',
 		'click .edit': 'edit',
 		'click .save': 'save',
-		'click .cancel': 'cancel'
+		'click .cancel': 'cancel',
+		'click .join': 'join'
 	},
 	delete: function() {
 		this.model.destroy({
@@ -80,6 +82,20 @@ var FunfixerView = Backbone.View.extend({
 	cancel: function(){
 		funfixersView.render();
 	},
+	join: function(){
+		var arr = _.clone(this.model.get('joined'));
+		arr.push('Elise Ellerstedt');
+
+		this.model.set('joined', arr);
+		this.model.save(null, {
+			success: function(response) {
+				console.log('Successfully UPDATED funfixer with _id: ' + response.toJSON()._id);
+			},
+			error: function(err) {
+				console.log('Failed to update funfixer!');
+			}
+		});
+	},
 	render: function() {
 		this.$el.html(this.template(this.model.toJSON()));
 		return this;
@@ -104,11 +120,11 @@ var FunfixersView = Backbone.View.extend({
 		this.model.fetch({
 			success: function(response) {
 				_.each(response.toJSON(), function(item) {
-					console.log('Successfully GOT blog with _id: ' + item._id);
+					console.log('Successfully GOT funfixer with _id: ' + item._id);
 				})
 			},
 			error: function() {
-				console.log('Failed to get blogs!');
+				console.log('Failed to get funfixers!');
 			}
 		});
 	},

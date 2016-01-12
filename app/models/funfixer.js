@@ -5,7 +5,8 @@ var FunfixerSchema   = new Schema({
     title: String,
     description: String,
     host: String,
-    img: String
+    img: String,
+    joined: [String]
 });
 
 module.exports = mongoose.model('Funfixer', FunfixerSchema);

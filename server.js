@@ -56,7 +56,8 @@ funfixersRoute.get(function(req, res) {
        title: funfixer.title,
        description: funfixer.description,
        host: funfixer.host,
-       img: funfixer.img
+       img: funfixer.img,
+       joined: funfixer.joined
        
      }});
    res.send(result);
@@ -73,6 +74,7 @@ funfixersRoute.post(function(req, res){
   funfixer.description = req.body.description;
   funfixer.host = req.body.host;
   funfixer.img = req.body.img;
+  funfixer.joined = req.body.joined;
 
   // Save the activity and check for errors
   funfixer.save(function(err) {
@@ -88,7 +90,8 @@ funfixersRoute.post(function(req, res){
          title: funfixer.title,
          host: funfixer.host,
          description: funfixer.description,
-         img: funfixer.img
+         img: funfixer.img,
+         joined: funfixer.joined
        }});
 
         console.log(result);
@@ -105,7 +108,7 @@ funfixerRoute.delete(function(req, res){
 
   Funfixer.findByIdAndRemove(req.params.funfixer_id, function(err, funfixer){
     if (err) res.send(err);
-    res.json({message: "Removed activity"});
+    res.json({message: "Removed funfixer"});
   });
 
 });
@@ -119,6 +122,7 @@ funfixerRoute.put(function(req, res) {
     funfixer.host = req.body.host;
     funfixer.description = req.body.description;
     funfixer.img = req.body.img;
+    funfixer.joined = req.body.joined;
 
     funfixer.save(function(err) {
       if (err)
@@ -134,7 +138,8 @@ funfixerRoute.put(function(req, res) {
            title: funfixer.title,
            host: funfixer.host,
            description: funfixer.description,
-           img: funfixer.img
+           img: funfixer.img,
+           joined: funfixer.joined
          }});
 
         console.log(result);
