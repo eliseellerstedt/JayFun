@@ -60,17 +60,20 @@ var FunfixerView = Backbone.View.extend({
 		var title = this.$('.title').html();
 		var description = this.$('.description').html();
 		var img = this.$('.img').attr('src');
+		var address = this.model.get('address');
 
 		this.$('.host').html('<input type="text" class="host-update" value="' + host + '">');
 		this.$('.title').html('<input type="text" class="title-update" value="' + title + '">');
 		this.$('.description').html('<input type="text" class="description-update" value="' + description + '">');
 		this.$('.img-box').html('<input type="text" class="img-update" value="' + img + '">');
+		this.$('.map').html('<input type="text" class="address-update" value="' + address + '">');
 	},
 	save: function(){
 		this.model.set('host', $('.host-update').val());
 		this.model.set('title', $('.title-update').val());
 		this.model.set('description', $('.description-update').val());
 		this.model.set('img', $('.img-update').val());
+		this.model.set('address', $('.address-update').val());
 
 		this.model.save(null, {
 			success: function(response) {
