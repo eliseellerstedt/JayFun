@@ -11,28 +11,6 @@ var Funfixer = Backbone.Model.extend({
     	address: '',
     	joined: [],
     	hasJoined: ''
-  	},
-  	validation: {
-  		title: {
-  			required: true,
-  			msg: 'Please enter a title'
-  		},
-  		description: {
-  			required: true,
-  			msg: 'Please enter a description'
-  		},
-  		host: {
-  			required: true,
-  			msg: 'Please enter a host'
-  		},
-  		img: {
-  			required: true,
-  			msg: 'Please enter an image url'
-  		},
-  		address: {
-  			required: true,
-  			msg: 'Please enter an address'
-  		}
   	}
 });
 
@@ -60,6 +38,7 @@ var FunfixerFormView = Backbone.View.extend({
 	},
 	newFunfixer: function(e) {
 		e.preventDefault();
+
 		var funfixer = new Funfixer({
 			title: $('#title').val(),
 			description: $('#description').val(),
@@ -188,9 +167,10 @@ var FunfixersView = Backbone.View.extend({
 	var FunfixerDetailsView = Backbone.View.extend({
 		model: new Funfixer(),
 		className: 'details',
-		template:_.template($('#funfixerDetailsTemplate').html()),
+		
 		initialize: function(){
 			this.model.on('change', this.render, this);
+			this.template = _.template($('#funfixerDetailsTemplate').html());
 		},
 		
 	    render:function (eventName) {
@@ -217,24 +197,8 @@ var FunfixersView = Backbone.View.extend({
 			});
 		},
 		edit: function(){
-
-
-			this.$('.remove').hide();
-			this.$('.edit').hide();
-			this.$('.save').show();
-			this.$('.cancel').show();
-
-			var host = this.model.get('host');
-			var title = this.model.get('title');
-			var description = this.model.get('description');
-			var img = this.model.get('img');
-			var address = this.model.get('address');
-
-			$('.host').html('<input type="text" class="host-update" value="' + host + '">');
-			$('.title').html('<input type="text" class="title-update" value="' + title + '">');
-			$('.description').html('<input type="text" class="description-update" value="' + description + '">');
-			$('.img-box').html('<input type="text" class="img-update" value="' + img + '">');
-			$('.map').html('<input type="text" class="address-update" value="' + address + '">');
+			this.template = _.template($('#funfixerEditTemplate').html());
+			this.render();
 		},
 		save: function(){
 			this.model.set({
@@ -255,6 +219,7 @@ var FunfixersView = Backbone.View.extend({
 			});
 		},
 		cancel: function(){
+			this.template = _.template($('#funfixerDetailsTemplate').html());
 			funfixerDetailsView.render();
 		},
 		join: function(){

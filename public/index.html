@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="css/index.css">
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js"></script>
-
+  <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.3/backbone-min.js"></script>
  
@@ -109,9 +109,24 @@
           <div class="buttons">
             <button class="btn remove"><i class="fa fa-trash"></i></button>
             <button class="btn edit"><i class="fa fa-pencil"></i></button>
-            <button class="btn save" style="display:none"><i class="fa fa-floppy-o"></i></button> 
-            <button class="btn cancel" style="display:none"><i class="fa fa-ban"></i></button>
+            
           </div>
+        </div>
+  </script>
+
+  <script id="funfixerEditTemplate" type="text/template">
+    <div class="info">
+          <form>
+            <input type="text" class="host-update" value="<%= host %>">
+            <input type="text" class="title-update" value="<%= title %>">
+            <input type="text" class="description-update" value="<%= description %>">
+            <input type="text" class="img-update" value="<%= img %>">
+            <input type="text" class="address-update" value="<%= address %>">
+            <div class="buttons">
+              <button class="btn save"><i class="fa fa-floppy-o"></i></button> 
+              <button class="btn cancel"><i class="fa fa-ban"></i></button>
+            </div>
+          </form>
         </div>
   </script>
   
