@@ -54,7 +54,6 @@ var FunfixerView = Backbone.View.extend({
 				arr.splice(index, 1);
 			}	
 		}else{
-			
 			arr.push('Elise Ellerstedt');
 		}
 
@@ -71,8 +70,8 @@ var FunfixerView = Backbone.View.extend({
 
 	},
 	details: function(e){
-		var model = e.target;
-		var id = model.id;
+		
+		var id = this.model.get('_id');
 		app.navigate('/funfixers/' + id, {trigger: true});
 	},
 	render: function() {
