@@ -44,9 +44,10 @@ var Funfixers = Backbone.Collection.extend({
 
 // Backbone View for form
 var FunfixerFormView = Backbone.View.extend({
+
 	className: 'funfixer',
 	events: {
-		'click .new-fun': 'newFunfixer'
+		'submit .funfixerForm': 'newFunfixer'
 	},
 	initialize: function(){
 		this.template = _.template($('#funfixerFormTemplate').html());
@@ -54,8 +55,8 @@ var FunfixerFormView = Backbone.View.extend({
 	},
 	render: function() {
 		this.$el.html(this.template());
-		//Backbone.Validation.bind(this);
 		return this;
+		
 	},
 	newFunfixer: function(e) {
 		e.preventDefault();
@@ -66,23 +67,22 @@ var FunfixerFormView = Backbone.View.extend({
 			img: $('#img').val(),
 			address: $('#address').val()
 		});
-		console.log(funfixer.isValid(true));
-		if(funfixer.isValid(true)){
-			$('#title').val("");
-	        $('#description').val("");
-	        $('#host').val("");
-	        $('#img').val("");
-	        $('#address').val("");
-			funfixers.add(funfixer);
-			funfixer.save(null, {
-				success: function(response) {
-					console.log('Successfully SAVED funfixer with _id: ' + response.toJSON()._id);
-				},
-				error: function() {
-					console.log('Failed to save funfixer!');
-				}
-			});
-		}
+		
+		$('#title').val("");
+	    $('#description').val("");
+        $('#host').val("");
+        $('#img').val("");
+        $('#address').val("");
+		funfixers.add(funfixer);
+		funfixer.save(null, {
+			success: function(response) {
+				console.log('Successfully SAVED funfixer with _id: ' + response.toJSON()._id);
+			},
+			error: function() {
+				console.log('Failed to save funfixer!');
+			}
+		});
+		
 	}
 });
 
@@ -143,6 +143,7 @@ var FunfixerView = Backbone.View.extend({
 	render: function() {
 		this.$el.html(this.template(this.model.toJSON()));
 		return this;
+
 	}
 });
 
@@ -175,10 +176,12 @@ var FunfixersView = Backbone.View.extend({
 		var self = this;
 		this.$el.html('');
 		self.$el.append((new FunfixerFormView()).render().$el);
+
 		_.each(this.model.toArray(), function(funfixer) {
 			self.$el.append((new FunfixerView({model: funfixer})).render().$el);
 		});
 		return this;
+
 	}
 });
 
