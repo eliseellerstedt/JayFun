@@ -117,7 +117,7 @@ var FunfixersView = Backbone.View.extend({
 
 	var FunfixerDetailsView = Backbone.View.extend({
 		model: new Funfixer(),
-		className: 'funfixer',
+		className: 'details',
 		template:_.template($('#funfixerDetailsTemplate').html()),
 		initialize: function(){
 			this.model.on('change', this.render, this);
@@ -234,7 +234,7 @@ var FunfixersView = Backbone.View.extend({
 					var funfixer = funfixers.get(id);
 					console.log('Successfully GOT funfixer with _id: ' + id);
 					funfixerDetailsView = new FunfixerDetailsView({model:funfixer});
-					$('#funfixers').html(funfixerDetailsView.render().el);	
+					$('.row').html(funfixerDetailsView.render().el);	
 				},
 				error: function() {
 					console.log('Failed to get funfixers!');
