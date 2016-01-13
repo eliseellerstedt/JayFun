@@ -108,6 +108,13 @@ a:hover {
   color: white;
 }
 
+.details {
+  width: 80%;
+  margin-right: auto;
+  margin-left: auto;
+  color: white;
+}
+
 .info {
   display: flex;
   flex-flow: column nowrap;
@@ -117,13 +124,11 @@ a:hover {
   position: relative;
   background-color: rgba(255, 255, 255, 0.3);
   border-radius: 20px;
+  cursor: pointer;
 }
 
-.details {
-  width: 80%;
-  margin-right: auto;
-  margin-left: auto;
-  color: white;
+.details .info {
+  cursor: default;
 }
 
 .join {

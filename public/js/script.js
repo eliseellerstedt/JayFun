@@ -11,6 +11,28 @@ var Funfixer = Backbone.Model.extend({
     	address: '',
     	joined: [],
     	hasJoined: ''
+  	},
+  	validation: {
+  		title: {
+  			required: true,
+  			msg: 'Please enter a title'
+  		},
+  		description: {
+  			required: true,
+  			msg: 'Please enter a description'
+  		},
+  		host: {
+  			required: true,
+  			msg: 'Please enter a host'
+  		},
+  		img: {
+  			required: true,
+  			msg: 'Please enter an image url'
+  		},
+  		address: {
+  			required: true,
+  			msg: 'Please enter an address'
+  		}
   	}
 });
 
@@ -18,6 +40,50 @@ var Funfixer = Backbone.Model.extend({
 
 var Funfixers = Backbone.Collection.extend({
 	url: '/api/funfixers'
+});
+
+// Backbone View for form
+var FunfixerFormView = Backbone.View.extend({
+	className: 'funfixer',
+	events: {
+		'click .new-fun': 'newFunfixer'
+	},
+	initialize: function(){
+		this.template = _.template($('#funfixerFormTemplate').html());
+		
+	},
+	render: function() {
+		this.$el.html(this.template());
+		//Backbone.Validation.bind(this);
+		return this;
+	},
+	newFunfixer: function(e) {
+		e.preventDefault();
+		var funfixer = new Funfixer({
+			title: $('#title').val(),
+			description: $('#description').val(),
+			host: $('#host').val(),
+			img: $('#img').val(),
+			address: $('#address').val()
+		});
+		console.log(funfixer.isValid(true));
+		if(funfixer.isValid(true)){
+			$('#title').val("");
+	        $('#description').val("");
+	        $('#host').val("");
+	        $('#img').val("");
+	        $('#address').val("");
+			funfixers.add(funfixer);
+			funfixer.save(null, {
+				success: function(response) {
+					console.log('Successfully SAVED funfixer with _id: ' + response.toJSON()._id);
+				},
+				error: function() {
+					console.log('Failed to save funfixer!');
+				}
+			});
+		}
+	}
 });
 
 // Backbone View for one funfixer
@@ -93,7 +159,6 @@ var FunfixersView = Backbone.View.extend({
 			}, 30);
 		},this);
 		this.model.on('remove', this.render, this);
-
 		this.model.fetch({
 			success: function(response) {
 				_.each(response.toJSON(), function(item) {
@@ -104,10 +169,12 @@ var FunfixersView = Backbone.View.extend({
 				console.log('Failed to get funfixers!');
 			}
 		});
+		
 	},
 	render: function() {
 		var self = this;
 		this.$el.html('');
+		self.$el.append((new FunfixerFormView()).render().$el);
 		_.each(this.model.toArray(), function(funfixer) {
 			self.$el.append((new FunfixerView({model: funfixer})).render().$el);
 		});
@@ -225,6 +292,7 @@ var FunfixersView = Backbone.View.extend({
 	 
 	    list:function () {
 	        funfixersView = new FunfixersView({model: funfixers});
+	        
 	    },
 	 
 	    funfixerDetails:function (id) {
@@ -250,34 +318,3 @@ var FunfixersView = Backbone.View.extend({
 	var funfixerDetailsView;
 	var app = new AppRouter();
 	Backbone.history.start();
-
-
-
-$(document).ready(function() {
-	$('.new-fun').on('click', function(e) {
-		e.preventDefault();
-		var funfixer = new Funfixer({
-			title: $('#title').val(),
-			description: $('#description').val(),
-			host: $('#host').val(),
-			img: $('#img').val(),
-			address: $('#address').val()
-		});
-		$('#title').val("");
-        $('#description').val("");
-        $('#host').val("");
-        $('#img').val("");
-        $('#address').val("");
-		funfixers.add(funfixer);
-		funfixer.save(null, {
-			success: function(response) {
-				console.log('Successfully SAVED funfixer with _id: ' + response.toJSON()._id);
-			},
-			error: function() {
-				console.log('Failed to save funfixer!');
-			}
-		});
-	});
-
-
-})
