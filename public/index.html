@@ -18,7 +18,7 @@
   <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
-            <h1>JayFun</h1>
+            <a href="/"><h1>JayFun</h1></a>
         </div>
         <div>
           <ul class="nav navbar-nav">
@@ -54,7 +54,33 @@
 
    <script id="funfixerTemplate" type="text/template">
      
-        <div class="info">
+        <div class="info" id="<%= _id %>">
+          <button class="btn join">
+            <% if (hasJoined) { %>
+              <i class="fa fa-heart"></i>
+            <% }else{ %>
+              <i class="fa fa-heart-o"></i>
+
+          <% } %>
+          </button>
+          <div class="host-box">
+            <p class="host"><%= host %></p>
+
+          </div>
+          <div class="img-box">
+            <img class="img" src="<%= img %>"/>
+          </div>
+          <div class="title"><%= title %></div>
+          
+          <div class="buttons">
+            <button class="btn remove"><i class="fa fa-trash"></i></button>
+          </div>
+        </div>
+    
+  </script>
+
+  <script id="funfixerDetailsTemplate" type="text/template">
+    <div class="info">
           <button class="btn join">
             <% if (hasJoined) { %>
               <i class="fa fa-heart"></i>
@@ -84,7 +110,6 @@
             <button class="btn cancel" style="display:none"><i class="fa fa-ban"></i></button>
           </div>
         </div>
-    
   </script>
   
   <!--<script src="js/routes/routes.js"></script>

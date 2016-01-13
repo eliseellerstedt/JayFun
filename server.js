@@ -159,6 +159,21 @@ funfixerRoute.put(function(req, res) {
   });
 });
 
+var funfixerRoute = router.route('/funfixers/:funfixer_id');
+
+funfixerRoute.get(function(req, res){
+  
+
+  Funfixer.findById(req.params.funfixer_id, function(err, funfixer){
+    if (err) res.send(err);
+    //funfixer.isEnrolled = activity.enrolled.indexOf(req.user.name) >= 0;
+    //console.log(activity.isEnrolled);
+    console.log(funfixer);
+    res.json(funfixer);
+  });
+
+});
+
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/api', router);

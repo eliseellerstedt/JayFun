@@ -37,6 +37,15 @@ button {
   margin: 3px;
 }
 
+a {
+  color: white;
+}
+
+a:hover {
+  color: white;
+  text-decoration: none;
+}
+
 .navbar {
   color: white;
   border-width: 0 0 0;

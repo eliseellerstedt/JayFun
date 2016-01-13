@@ -20,10 +20,6 @@ var Funfixers = Backbone.Collection.extend({
 	url: '/api/funfixers'
 });
 
-// instantiate a Collection
-
-var funfixers = new Funfixers();
-
 // Backbone View for one funfixer
 
 var FunfixerView = Backbone.View.extend({
@@ -34,12 +30,11 @@ var FunfixerView = Backbone.View.extend({
 	},
 	events: {
 		'click .remove': 'delete',
-		'click .edit': 'edit',
-		'click .save': 'save',
-		'click .cancel': 'cancel',
-		'click .join': 'join'
+		'click .join': 'join',
+		'click .info': 'details'
 	},
-	delete: function() {
+	delete: function(e) {
+		e.stopPropagation();
 		this.model.destroy({
 			success: function(response) {
 				console.log('Successfully DELETED funfixer with _id: ' + response.toJSON()._id);
@@ -49,45 +44,8 @@ var FunfixerView = Backbone.View.extend({
 			}
 		});
 	},
-	edit: function(){
-
-		this.$('.remove').hide();
-		this.$('.edit').hide();
-		this.$('.save').show();
-		this.$('.cancel').show();
-
-		var host = this.$('.host').html();
-		var title = this.$('.title').html();
-		var description = this.$('.description').html();
-		var img = this.$('.img').attr('src');
-		var address = this.model.get('address');
-
-		this.$('.host').html('<input type="text" class="host-update" value="' + host + '">');
-		this.$('.title').html('<input type="text" class="title-update" value="' + title + '">');
-		this.$('.description').html('<input type="text" class="description-update" value="' + description + '">');
-		this.$('.img-box').html('<input type="text" class="img-update" value="' + img + '">');
-		this.$('.map').html('<input type="text" class="address-update" value="' + address + '">');
-	},
-	save: function(){
-		this.model.set('host', $('.host-update').val());
-		this.model.set('title', $('.title-update').val());
-		this.model.set('description', $('.description-update').val());
-		this.model.set('img', $('.img-update').val());
-		this.model.set('address', $('.address-update').val());
-
-		this.model.save(null, {
-			success: function(response) {
-				console.log('Successfully UPDATED funfixer with _id: ' + response.toJSON()._id);
-			},
-			error: function(err) {
-				console.log('Failed to update funfixer!');
-			}
-		});
-	},
-	cancel: function(){
-		funfixersView.render();
-	},
-	join: function(){
+	join: function(e){
+		e.stopPropagation();
 		var arr = _.clone(this.model.get('joined'));
 		
 		if(this.model.get('hasJoined')){
@@ -112,6 +70,11 @@ var FunfixerView = Backbone.View.extend({
 		});
 
 	},
+	details: function(e){
+		var model = e.target;
+		var id = model.id;
+		app.navigate('/funfixers/' + id, {trigger: true});
+	},
 	render: function() {
 		this.$el.html(this.template(this.model.toJSON()));
 		return this;
@@ -119,7 +82,6 @@ var FunfixerView = Backbone.View.extend({
 });
 
 // Backbone View for all funfixers
-
 var FunfixersView = Backbone.View.extend({
 	model: funfixers,
 	el: $('#funfixers'),
@@ -154,7 +116,143 @@ var FunfixersView = Backbone.View.extend({
 	}
 });
 
-var funfixersView = new FunfixersView();
+	var FunfixerDetailsView = Backbone.View.extend({
+		model: new Funfixer(),
+		className: 'funfixer',
+		template:_.template($('#funfixerDetailsTemplate').html()),
+		initialize: function(){
+			this.model.on('change', this.render, this);
+		},
+		
+	    render:function (eventName) {
+	        $(this.el).html(this.template(this.model.toJSON()));
+	        return this;
+	    },
+		events: {
+			'click .remove': 'delete',
+			'click .edit': 'edit',
+			'click .save': 'save',
+			'click .cancel': 'cancel',
+			'click .join': 'join'
+		},
+		delete: function() {
+			
+			this.model.destroy({
+				success: function(response) {
+					console.log('Successfully DELETED funfixer with _id: ' + response.toJSON()._id);
+					app.navigate('', {trigger: true});
+				},
+				error: function(err) {
+					console.log('Failed to delete funfixer!');
+				}
+			});
+		},
+		edit: function(){
+
+
+			this.$('.remove').hide();
+			this.$('.edit').hide();
+			this.$('.save').show();
+			this.$('.cancel').show();
+
+			var host = this.model.get('host');
+			var title = this.model.get('title');
+			var description = this.model.get('description');
+			var img = this.model.get('img');
+			var address = this.model.get('address');
+
+			$('.host').html('<input type="text" class="host-update" value="' + host + '">');
+			$('.title').html('<input type="text" class="title-update" value="' + title + '">');
+			$('.description').html('<input type="text" class="description-update" value="' + description + '">');
+			$('.img-box').html('<input type="text" class="img-update" value="' + img + '">');
+			$('.map').html('<input type="text" class="address-update" value="' + address + '">');
+		},
+		save: function(){
+			this.model.set({
+				'host': $('.host-update').val(),
+				'title': $('.title-update').val(),
+				'description': $('.description-update').val(),
+				'img': $('.img-update').val(),
+				'address': $('.address-update').val()
+			});
+
+			this.model.save(null, {
+				success: function(response) {
+					console.log('Successfully UPDATED funfixer with _id: ' + response.toJSON()._id);
+				},
+				error: function(err) {
+					console.log('Failed to update funfixer!');
+				}
+			});
+		},
+		cancel: function(){
+			funfixerDetailsView.render();
+		},
+		join: function(){
+			var arr = _.clone(this.model.get('joined'));
+			
+			if(this.model.get('hasJoined')){
+				var index = arr.indexOf("Elise Ellerstedt");
+				if(index != -1) {
+					arr.splice(index, 1);
+				}	
+			}else{
+				
+				arr.push('Elise Ellerstedt');
+			}
+
+			this.model.set('joined', arr);
+			this.model.set('hasJoined', !this.model.get('hasJoined'));
+			this.model.save(null, {
+				success: function(response) {
+					console.log('Successfully UPDATED funfixer with _id: ' + response.toJSON()._id);
+				},
+				error: function(err) {
+					console.log('Failed to update funfixer!');
+				}
+			});
+
+		}
+	}); 
+
+
+	// Router
+	var AppRouter = Backbone.Router.extend({
+	 
+	    routes:{
+	        "":"list",
+	        "funfixers/:id":"funfixerDetails"
+	    },
+	 
+	    list:function () {
+	        funfixersView = new FunfixersView({model: funfixers});
+	    },
+	 
+	    funfixerDetails:function (id) {
+	    	
+	    	funfixers.fetch({
+				success: function(response) {
+					var funfixer = funfixers.get(id);
+					console.log('Successfully GOT funfixer with _id: ' + id);
+					funfixerDetailsView = new FunfixerDetailsView({model:funfixer});
+					$('#funfixers').html(funfixerDetailsView.render().el);	
+				},
+				error: function() {
+					console.log('Failed to get funfixers!');
+				}
+			});
+	    }
+	});
+
+// instantiate app
+
+	var funfixers = new Funfixers();
+	var funfixersView;
+	var funfixerDetailsView;
+	var app = new AppRouter();
+	Backbone.history.start();
+
+
 
 $(document).ready(function() {
 	$('.new-fun').on('click', function(e) {
